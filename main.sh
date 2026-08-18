@@ -70,7 +70,6 @@ set -euo pipefail
 
 DISK="${1:-/dev/sda}"
 REPO_DIR="$(pwd)"
-NIXOS_DIR="/etc/nixos"
 
 echo "[INFO] === STARTE HAUPTINSTALLATION (MAIN) ==="
 
