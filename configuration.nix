@@ -12,12 +12,14 @@
 
 
   services.qemuGuest.enable = false; # (Falls du von QEMU/KVM kommst, auslassen; für Hyper-V nutzen wir die nativen Kernel-Optionen)
-  systemd.services.hyperv-daemons = {
+systemd.services.hyperv-daemons = {
     description = "Hyper-V Daemons";
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      ExecStart = "${pkgs.hyperv}/bin/hv_kvp_daemon"; # Oder die entsprechenden Hyper-V Daemons falls benötigt
+      ExecStart = "${pkgs.hyperv}/bin/hv_kvp_daemon";
     };
+  }; # <-- DIESE KLAMMER HAT GEFEHLT!
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
