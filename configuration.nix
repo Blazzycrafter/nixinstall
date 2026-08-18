@@ -10,6 +10,14 @@
       ./hardware-configuration.nix
     ];
 
+
+  services.qemuGuest.enable = false; # (Falls du von QEMU/KVM kommst, auslassen; für Hyper-V nutzen wir die nativen Kernel-Optionen)
+  systemd.services.hyperv-daemons = {
+    description = "Hyper-V Daemons";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.hyperv}/bin/hv_kvp_daemon"; # Oder die entsprechenden Hyper-V Daemons falls benötigt
+    };
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -20,7 +28,7 @@
   networking.networkmanager.enable = true;
 
   # Set your time zone.
-  # time.timeZone = "Europe/Amsterdam";
+  time.timeZone = "Europe/Berlin";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -28,11 +36,11 @@
 
   # Select internationalisation properties.
   # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
+  console = {
+    font = "ter-v24b";
+    keyMap = "de";
   #   useXkbConfig = true; # use xkb.options in tty.
-  # };
+  };
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
@@ -71,10 +79,12 @@
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
-  # environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
   #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
-  # ];
+    tmux
+    curl
+    wget
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
