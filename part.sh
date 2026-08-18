@@ -10,6 +10,10 @@ echo "[STEP] Versuche eventuell noch aktive Mounts zu lösen (/mnt/boot und /mnt
 sudo umount /mnt/boot 2>/dev/null && echo "[OK] /mnt/boot erfolgreich unmountet" || echo "[INFO] /mnt/boot war nicht gemountet."
 sudo umount /mnt 2>/dev/null && echo "[OK] /mnt erfolgreich unmountet" || echo "[INFO] /mnt war nicht gemountet."
 
+
+sudo swapoff -a
+sudo udevadm settle
+
 echo "[STEP] Lösche alle alten Signaturen und Partitionstabellen mit wipefs auf $DISK..."
 sudo wipefs -a "$DISK"
 echo "[OK] wipefs erfolgreich ausgeführt."
