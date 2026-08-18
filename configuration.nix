@@ -63,7 +63,6 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
     initialPassword = "infrahost";   # Das Start-Passwort
-    expirePassword = false;       # Erzwingt die Passwortänderung beim ersten Login!
   };
 
   # users.users.alice = {
